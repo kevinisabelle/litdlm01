@@ -211,7 +211,7 @@ L C C1
 U 1 1 5BF151A1
 P 6375 2700
 F 0 "C1" H 6400 2800 50  0000 L CNN
-F 1 "104" H 6400 2600 50  0000 L CNN
+F 1 "105" H 6400 2600 50  0000 L CNN
 F 2 "Capacitors_THT:CP_Radial_D4.0mm_P2.00mm" H 6413 2550 50  0001 C CNN
 F 3 "" H 6375 2700 50  0001 C CNN
 	1    6375 2700
@@ -540,8 +540,6 @@ Wire Wire Line
 Connection ~ 8625 2575
 Text GLabel 8925 2075 2    60   Output ~ 0
 ADCInput
-Wire Wire Line
-	5600 2075 8925 2075
 $Comp
 L D_Zener_ALT D2
 U 1 1 5C015A06
@@ -568,7 +566,6 @@ Wire Wire Line
 	8250 2400 8250 2400
 Wire Wire Line
 	8250 2100 8250 2075
-Connection ~ 8250 2075
 Wire Wire Line
 	6725 2525 7050 2525
 Text GLabel 6725 2825 3    60   Input ~ 0
@@ -827,4 +824,52 @@ Wire Wire Line
 Connection ~ 1825 5550
 Wire Wire Line
 	1350 5550 1350 5500
+$Comp
+L R R?
+U 1 1 5C44BBA8
+P 6000 2075
+F 0 "R?" V 6080 2075 50  0000 C CNN
+F 1 "10k" V 6000 2075 50  0000 C CNN
+F 2 "Resistors_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal" V 5930 2075 50  0001 C CNN
+F 3 "" H 6000 2075 50  0001 C CNN
+	1    6000 2075
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	5850 2075 5600 2075
+$Comp
+L C C?
+U 1 1 5C44BCEB
+P 6375 1925
+F 0 "C?" H 6400 2025 50  0000 L CNN
+F 1 "105" H 6400 1825 50  0000 L CNN
+F 2 "Capacitors_THT:CP_Radial_D4.0mm_P2.00mm" H 6413 1775 50  0001 C CNN
+F 3 "" H 6375 1925 50  0001 C CNN
+	1    6375 1925
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	6150 2075 8925 2075
+Connection ~ 6375 2075
+Wire Wire Line
+	8250 2075 8350 2075
+Connection ~ 8350 2075
+Connection ~ 8250 2075
+$Comp
+L GND #PWR?
+U 1 1 5C44BFD3
+P 6150 1750
+F 0 "#PWR?" H 6150 1500 50  0001 C CNN
+F 1 "GND" H 6150 1600 50  0000 C CNN
+F 2 "" H 6150 1750 50  0001 C CNN
+F 3 "" H 6150 1750 50  0001 C CNN
+	1    6150 1750
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6150 1750 6150 1700
+Wire Wire Line
+	6150 1700 6375 1700
+Wire Wire Line
+	6375 1700 6375 1775
 $EndSCHEMATC

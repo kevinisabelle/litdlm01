@@ -1265,7 +1265,7 @@ inline unsigned int clipValue(long value, int index){
 			break;
 	}
 	
-	unsigned long retValue = (((value)) + (inputSens)) << 8; // Max at this stage is 65535
+	unsigned long retValue = (((value)) + (inputSens)) << 4; // Max at this stage is 65535
 	
 	if (retValue < 0){
 		retValue = 0;
@@ -1533,7 +1533,7 @@ ISR(ANIM_REFRESH) {
 	}
 }
 
-static void flashResetPin(int trig){
+/*static void flashResetPin(int trig){
 	
 	int8_t pin = 0;
 	
@@ -1577,7 +1577,7 @@ static void flashResetPin(int trig){
 	}
 	
 	RESET_TRIG_PORT.OUTCLR |= pin;
-}
+}*/
 
 
 volatile uint8_t portbhistory = 0x00;
