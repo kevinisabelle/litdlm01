@@ -1166,16 +1166,20 @@ char	A_FILLCENTER_ARR[7][10] = {
 
 // Animation definition: Center Moving EQ
 uint8_t		A_CMOVINGEQ_SMOOTH = 1;
-unsigned int 	A_CMOVINGEQ_STATE_SIZE = 6;
-char	A_CMOVINGEQR_ARR[7][10] = {
+unsigned int 	A_CMOVINGEQ_STATE_SIZE = 10;
+char	A_CMOVINGEQR_ARR[11][10] = {
 	
-	{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, //  0
-	{0, 0, 0, 0, 2, 0, 0, 0, 0, 0}, //  1
-	{0, 0, 0, 2, 1, 2, 0, 0, 0, 0}, //  2
-	{0, 0, 2, 1, 1, 1, 2, 0, 0, 0}, //  3
-	{0, 2, 1, 1, 1, 1, 1, 2, 0, 0}, //  4
-	{2, 1, 1, 1, 1, 1, 1, 1, 2, 0}, //  5
-	{2, 1, 1, 1, 1, 1, 1, 1, 1, 2}, //  6
+	{0,0,0,0,0,0,0,0,0,0},
+	{1,0,0,0,0,0,0,0,0,2},
+	{0,1,0,0,0,0,0,0,2,0},
+	{0,0,1,0,0,0,0,2,0,0},
+	{0,0,0,1,0,0,2,0,0,0},
+	{0,0,0,0,1,2,0,0,0,0},
+	{0,0,0,0,2,1,0,0,0,0},
+	{0,0,0,2,0,0,1,0,0,0},
+	{0,0,2,0,0,0,0,1,0,0},
+	{0,2,0,0,0,0,0,0,1,0},
+	{2,0,0,0,0,0,0,0,0,1}
 };
 
 // Animation definition: Center Fixed EQ
@@ -1269,9 +1273,9 @@ inline unsigned int clipValue(long value, int index){
 	
 	value = value + inputSens;
 	
-	if (value > 30) {
+	/*if (value > 30) {
 		value = value - 30;
-	}
+	}*/
 	
 	if (value < 100){
 		value = 0;

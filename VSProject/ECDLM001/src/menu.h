@@ -78,7 +78,7 @@
 #define MENU_ITEM_ANIMATION_CFILL		"Center fill    "
 #define MENU_ITEM_ANIMATION_EQMOV		"EQ Moving      "
 #define MENU_ITEM_ANIMATION_EQFIXED		"EQ Fixed       "
-#define MENU_ITEM_ANIMATION_CEQMOV		"Center EQ Mov  "
+#define MENU_ITEM_ANIMATION_CEQMOV		"Double Point   "
 #define MENU_ITEM_ANIMATION_CEQFIXED	"Center EQ Fixed"
 #define MENU_ITEM_ANIMATION_PULSE_S		"Constellation  "
 #define MENU_ITEM_ANIMATION_PULSE_C		"Pulse center   "
