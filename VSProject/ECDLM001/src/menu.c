@@ -758,7 +758,7 @@ void WriteConfigToNVM(void){
 
 ISR(ENCODER_TURNED)
 {
-	int val = TCE0.CNT > 1 ? -1 : 1;
+	int val = TCE0.CNT > 1 ? 1 : -1;
 
 	if ((countTCF0 - lastCounter) < 2){
 		return;
