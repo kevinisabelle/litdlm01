@@ -11,7 +11,7 @@
 // Pin/Ports configurations
 #define WS2812_PORT			PORTA
 #define TRIGGER_PORT		PORTB
-#define SCHMITT_TRIG_PORT	PORTC
+//#define SCHMITT_TRIG_PORT	PORTC
 #define RESET_TRIG_PORT		PORTF
 #define RESET_PIN1			PIN5_bm
 #define RESET_PIN2			PIN4_bm
@@ -57,22 +57,15 @@
 #define BUTTON_4_PIN		PIN0_bm
 #define BUTTON_4_PORTCTRL	BUTTON_34_PORT.PIN0CTRL
 
-
-#define SD_CARD_PORT		PORTE
-#define SD_CARD_SS			PIN4_bm
-#define SD_CARD_MOSI		PIN5_bm
-#define SD_CARD_MISO		PIN6_bm
-#define SD_CARD_SCK			PIN7_bm
-
 // Interrupt Vectors
 #define BUTTON_PRESSED12	PORTR_INT0_vect
 #define BUTTON_PRESSED34ENC PORTD_INT0_vect
 #define ENCODER_TURNED		TCE0_OVF_vect
-#define STRIGGER_TRIGGED	PORTC_INT0_vect
+//#define STRIGGER_TRIGGED	PORTC_INT0_vect
 #define LCD_REFRESH			TCC0_OVF_vect
 #define LED_REFRESH			TCC1_OVF_vect
 #define ANIM_REFRESH		TCD0_OVF_vect
-#define STRIG_STATE_CHECK	TCD1_OVF_vect
+//#define STRIG_STATE_CHECK	TCD1_OVF_vect
 
 
 #endif /* PINS_H_ */

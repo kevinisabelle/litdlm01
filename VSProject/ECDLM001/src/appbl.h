@@ -17,7 +17,7 @@
 // Operation parameters
 #define HZ_LED_REFRESH				70
 #define HZ_LCD_REFRESH				12
-#define HZ_ANIMATION_REFRESH		60
+#define HZ_ANIMATION_REFRESH		70
 #define NB_TRIGGERS					6
 #define MAX_NB_LIGHTS_PER_STRIP		30
 #define NB_PIXELS (NB_TRIGGERS * MAX_NB_LIGHTS_PER_STRIP * 3)

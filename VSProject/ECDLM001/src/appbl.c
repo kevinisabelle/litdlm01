@@ -1135,17 +1135,19 @@ uint8_t		A_FIXEDEQ_SMOOTH = 1;
 unsigned int 	A_FIXEDEQ_STATE_SIZE = 10;
 char	A_FIXEDEQ_ARR[11][10] = {
 	
-	{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, //  0
-	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0}, //  1
-	{1, 1, 0, 0, 0, 0, 0, 0, 0, 0}, //  2
-	{1, 1, 1, 0, 0, 0, 0, 0, 0, 0}, //  3
-	{1, 1, 1, 1, 0, 0, 0, 0, 0, 0}, //  4
-	{1, 1, 1, 1, 1, 0, 0, 0, 0, 0}, //  5
-	{1, 1, 1, 1, 1, 1, 0, 0, 0, 0}, //  6
-	{1, 1, 1, 1, 1, 1, 2, 0, 0, 0}, //  7
-	{1, 1, 1, 1, 1, 1, 2, 2, 0, 0}, //  8
-	{1, 1, 1, 1, 1, 1, 2, 2, 2, 0}, //  9
-	{1, 1, 1, 1, 1, 1, 2, 2, 2, 2},  // 10
+    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, //  0
+    {1, 0, 0, 0, 0, 0, 0, 0, 0, 0}, //  1
+    {1, 1, 0, 0, 0, 0, 0, 0, 0, 0}, //  2
+    {1, 1, 1, 0, 0, 0, 0, 0, 0, 0}, //  3
+    {1, 1, 1, 1, 0, 0, 0, 0, 0, 0}, //  4
+    {1, 1, 1, 1, 1, 0, 0, 0, 0, 0}, //  5
+    {1, 1, 1, 1, 1, 1, 0, 0, 0, 0}, //  6
+    {1, 1, 1, 1, 1, 1, 2, 0, 0, 0}, //  7
+    {1, 1, 1, 1, 1, 1, 2, 2, 0, 0}, //  8
+    {1, 1, 1, 1, 1, 1, 2, 2, 2, 0}, //  9
+    {1, 1, 1, 1, 1, 1, 2, 2, 2, 2},  // 10
+
+
 };
 
 // Animation definition: Center Fill
@@ -1265,7 +1267,23 @@ inline unsigned int clipValue(long value, int index){
 			break;
 	}
 	
-	unsigned long retValue = (((value)) + (inputSens)) << 4; // Max at this stage is 65535
+	value = value + inputSens;
+	
+	if (value > 30) {
+		value = value - 30;
+	}
+	
+	if (value < 100){
+		value = 0;
+	} 
+	
+	
+	
+	if (value > 255){
+		value = 255;
+	}
+	
+	unsigned long retValue = value << 8; // Max at this stage is 65535
 	
 	if (retValue < 0){
 		retValue = 0;
@@ -1280,19 +1298,12 @@ inline unsigned int clipValue(long value, int index){
 
 inline unsigned int getAnimationValue(unsigned int trigValue, unsigned int currentAnimationValue, int i){
 	
-	if (trigValue >= currentAnimationValue){
-		currentAnimationValue = trigValue;		
-		TRIGGER_STATES[i] = 0;
+	unsigned int releaseValue = (101 - release) << 6;
 		
+	if (currentAnimationValue <= releaseValue){
+		currentAnimationValue = 0;
 	} else {
-		
-		unsigned int releaseValue = (101 - release) << 6;
-		
-		if (currentAnimationValue <= releaseValue){
-			currentAnimationValue = 0;
-		} else {
-			currentAnimationValue -= releaseValue;
-		}
+		currentAnimationValue -= releaseValue;
 	}
 
 	if (currentAnimationValue < 0){
@@ -1459,7 +1470,7 @@ ISR(LED_REFRESH) {
 	for (uint8_t strip=0; strip<NB_TRIGGERS; strip++){
 		
 		uint8_t stripPin = 1 << strip;
-		cli();
+		//cli();
 		for (uint8_t i=0; i<getNbPixels(strip); i++){
 			int pos = getOffset(strip) * 3;
 			
@@ -1469,7 +1480,7 @@ ISR(LED_REFRESH) {
 				DISPLAY_PIXELS[pos+(i*3)+2], 
 				stripPin);
 		}
-		sei();
+		//sei();
 	}
 }
 
@@ -1532,119 +1543,6 @@ ISR(ANIM_REFRESH) {
 		updatePixels(ANIMATION_VALUES[i], i);
 	}
 }
-
-/*static void flashResetPin(int trig){
-	
-	int8_t pin = 0;
-	
-	switch(trig){
-		case 0:
-			pin = RESET_PIN1;
-			break;
-		case 1:
-			pin = RESET_PIN2;
-			break;
-		case 2:
-			pin = RESET_PIN3;
-			break;
-		case 3:
-			pin = RESET_PIN4;
-			break;
-		case 4:
-			pin = RESET_PIN5;
-			break;
-		case 5:
-			pin = RESET_PIN6;
-			break;
-		case 6:
-			pin = RESET_PIN7;
-			break;
-		case 7:
-			pin = RESET_PIN8;
-			break;
-	}
-	
-	if (!FLASH_RESET_PIN) { return; }
-	
-	RESET_TRIG_PORT.OUTSET |= pin;
-	int maxCount = 0;
-	while (SCHMITT_TRIG_PORT.IN & (1 << trig)){ 
-		maxCount++;  
-		if (maxCount == 15) {
-			break; 
-		}  
-			_delay_ms(1); 
-	}
-	
-	RESET_TRIG_PORT.OUTCLR |= pin;
-}*/
-
-
-volatile uint8_t portbhistory = 0x00;
-long lastTrigMS[] = {0, 0, 0, 0, 0, 0}; 
-
-volatile unsigned long timer1_millis;
-
-static void processTriggerAction(int triggerIndex) {
-
-	long result = 0;
-	long maxResult = 0;
-	int loopCount = 0;
-	
-	portbhistory &= ~(1 << triggerIndex);
-	
-	//check last trigger and ignore if too close
-	if ( countTCF0 - lastTrigMS[triggerIndex] < 50){
-		return;
-	}
-	
-	lastTrigMS[triggerIndex] = countTCF0;
-
-	while (true){
-		
-		loopCount++;
-		ADCB.CH0.MUXCTRL = ((triggerIndex)<<3);	//Analog Input: ADC1 Pin (on PORTA.0)
-		ADCB.CH0.INTCTRL = 0 ;
-		ADCB.CH0.CTRL |= ADC_CH_START_bm;		//Start conversion on ADCB1 (bm = bitmask)
-		while(ADCB.CH0.INTFLAGS==0);			//Wait for conversion to complete
-		ADCB.CH0.INTFLAGS = ADCB.CH0.INTFLAGS;
-		result = ADCB.CH0.RES ; //Get the conversion result
-		
-		if (maxResult < result){
-			maxResult = result;
-		}
-		
-		if (loopCount >= 150){
-			result = maxResult;
-			break;
-		}
-	}
-
-	if (clipValue(result, triggerIndex) > TRIGGER_STATES[triggerIndex] && animationTrigger == ANIM_TRIG_TRIGGER){
-		TRIGGER_STATES[triggerIndex] = clipValue(result, triggerIndex);
-	}
-	
-	
-	
-	//flashResetPin(triggerIndex);
-	
-}
-
-ISR(STRIGGER_TRIGGED){ // PORTC_INT0_vect
-	
-	uint8_t changedbits;
-
-	changedbits = SCHMITT_TRIG_PORT.IN ^ portbhistory;
-	portbhistory = SCHMITT_TRIG_PORT.IN;
-	
-	for (int bitNb = 0; bitNb<=7; bitNb++){
-		if(changedbits & (1 << bitNb ))
-		{
-			processTriggerAction(bitNb);
-		}
-	}
-}
-
 
 
 

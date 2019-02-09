@@ -21,7 +21,7 @@
 #define MENU_L1_FPRESETS    107
 #define MENU_L1_MONITOR		108
 
-#define MENU_TITLE_L1_IDLE			 "EC-DLM1 - v2.3.5"
+#define MENU_TITLE_L1_IDLE			 "LITDLM1 - v3.0"
 #define MENU_TITLE_L1_MODE			 "Mode        " // DMX, Manual
 #define MENU_TITLE_L1_ADDRESS		 "DMX Address "
 #define MENU_TITLE_L1_COLORS		 "Colors config..."
