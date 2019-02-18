@@ -1,0 +1,3 @@
+(fp_lib_table
+  (lib (name ec-dlm-001)(type KiCad)(uri "$(KIPRJMOD)/ec-dlm-001.pretty")(options "")(descr ""))
+)
