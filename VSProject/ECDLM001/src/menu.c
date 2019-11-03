@@ -215,11 +215,11 @@ ISR(LCD_REFRESH)
 {
 	if (!editingValue) {
 				
-		/*if (boxLight == 1){
+		if (boxLight == 1){
 			BOX_LED_PORT.OUTSET = BOX_LED2_PIN | BOX_LED1_PIN;
 			} else {
 			BOX_LED_PORT.OUTCLR = BOX_LED2_PIN | BOX_LED1_PIN;
-		}*/
+		}
 	}
 	
 	 if (menuLastState == menuState && !editingValue && menuState != MENU_STATE_MONITOR && menuState != MENU_STATE_MONITOR_2){
@@ -510,7 +510,7 @@ ISR(LCD_REFRESH)
 	 i2c_lcd_write_text(valueLCD);
  }
 
-void WriteConfigToNVM(void){
+ void WriteConfigToNVM(void){
 	   
 	   write_page[MENU_STATE_MODE] = operationMode;
 	   write_page[MENU_STATE_ADDRESS] = dmxAddress;
@@ -545,7 +545,7 @@ void WriteConfigToNVM(void){
 	   
    }
 
-   void ReadConfigFromNVM(void) {
+ void ReadConfigFromNVM(void) {
 
 	   nvm_eeprom_read_buffer(CONFIG_ADDR,	read_page, EEPROM_PAGE_SIZE);
 	   
@@ -671,7 +671,7 @@ void WriteConfigToNVM(void){
 	   
    }
    
- int capValue(int value, int min, int max){
+inline int capValue(int value, int min, int max){
 	 
 	 if (value < min) {return min;}
 	 if (value > max) {return max;}
@@ -755,12 +755,20 @@ void WriteConfigToNVM(void){
 
  int lastCounter = 0;
  int lastIndex = 0;
+ short processingTurn = 0;
 
 ISR(ENCODER_TURNED)
 {
+	if (processingTurn == 1){
+		return;
+	}
+
+	processingTurn = 1;
+
 	int val = TCE0.CNT > 1 ? 1 : -1;
 
-	if ((countTCF0 - lastCounter) < 2){
+	if ((countTCF0 - lastCounter) < 4){
+		processingTurn = 0;
 		return;
 	}
 
@@ -905,6 +913,8 @@ ISR(ENCODER_TURNED)
 				break;
 		}
 	}
+
+	processingTurn = 0;
 }
 
  inline void savePreset(int presetNb) {

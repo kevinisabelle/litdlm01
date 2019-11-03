@@ -64,9 +64,9 @@ static void init_RotaryEncoder(void) {
 	EVSYS.CH0MUX = EVSYS_CHMUX_PORTE_PIN2_gc;
 
 	TCE0.CTRLD =  (TC_EVSEL_CH0_gc | TC_EVACT_QDEC_gc);
-	TCE0.PER = 2;
+	TCE0.PER = 4;
 	TCE0.CTRLA  = TC_CLKSEL_DIV4_gc;
-	TCE0.CNT = 0;
+	TCE0.CNT = 1;
 	TCE0.INTCTRLA = TC_OVFINTLVL_LO_gc;
 }
 
