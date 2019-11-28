@@ -34,6 +34,7 @@
  int menuState = 0;
  int menuStates[] = {0, 0, 0, 0};
  uint8_t editingValue = 0;
+  short processingEncoder = 0;
 
  // Global variables
  char* titleLCD = "                ";
@@ -208,18 +209,18 @@ uint8_t write_page[EEPROM_PAGE_SIZE];
 uint8_t read_page[EEPROM_PAGE_SIZE];
 uint8_t preset_page[16];
 
-char emptyString[16] = {0};
+char emptyString[16] = "                ";
 char ledCount = 0;
 
 ISR(LCD_REFRESH)
 {
 	if (!editingValue) {
 				
-		/*if (boxLight == 1){
+		if (boxLight == 1){
 			BOX_LED_PORT.OUTSET = BOX_LED2_PIN | BOX_LED1_PIN;
 			} else {
 			BOX_LED_PORT.OUTCLR = BOX_LED2_PIN | BOX_LED1_PIN;
-		}*/
+		}
 	}
 	
 	 if (menuLastState == menuState && !editingValue && menuState != MENU_STATE_MONITOR && menuState != MENU_STATE_MONITOR_2){
@@ -229,7 +230,7 @@ ISR(LCD_REFRESH)
 	 menuLastState = menuState;
 	 
 	 if (!editingValue && menuState != MENU_STATE_MONITOR && menuState != MENU_STATE_MONITOR_2){
-		 i2c_lcd_clear();
+		 //
 	 }
 	 
 	 if (editingValue){
@@ -250,7 +251,7 @@ ISR(LCD_REFRESH)
 		 case MENU_STATE_IDLE:
 			 strcpy(titleLCD, MENU_TITLE_L1_IDLE);
 			 char dmxStr[16] = {0};
-			 snprintf(dmxStr, 16, "DMX Ch: %03d", dmxAddress);
+			 snprintf(dmxStr, 16, "DMX Ch: %03d     ", dmxAddress);
 			 
 			 strcpy(valueLCD,  operationMode == MODE_DMX ? dmxStr : pgm_read_ptr(&(modeNames[operationMode])) );
 			 break;
@@ -262,42 +263,42 @@ ISR(LCD_REFRESH)
 
 		 case MENU_STATE_ADDRESS:
 			 strcpy(titleLCD, MENU_TITLE_L1_ADDRESS);
-			 snprintf(valueLCD, 16, "%03d", dmxAddress);
+			 snprintf(valueLCD, 16, "%03d             ", dmxAddress);
 			 break;
 
 		 case MENU_STATE_COLOR_R1:
 			 strcpy(titleLCD, MENU_TITLE_COLOR_R1);
-			 snprintf(valueLCD, 16, "%03d", colorR1);
+			 snprintf(valueLCD, 16, "%03d             ", colorR1);
 			 break;
 		 
 		 case MENU_STATE_COLOR_G1:
 			 strcpy(titleLCD, MENU_TITLE_COLOR_G1);
-			 snprintf(valueLCD, 16, "%03d", colorG1);
+			 snprintf(valueLCD, 16, "%03d             ", colorG1);
 			 break;
 		 
 		 case MENU_STATE_COLOR_B1:
 			 strcpy(titleLCD, MENU_TITLE_COLOR_B1);
-			 snprintf(valueLCD, 16, "%03d", colorB1);
+			 snprintf(valueLCD, 16, "%03d             ", colorB1);
 			 break;
 			 
 		 case MENU_STATE_COLOR_R2:
 			 strcpy(titleLCD, MENU_TITLE_COLOR_R2);
-			 snprintf(valueLCD, 16, "%03d", colorR2);
+			 snprintf(valueLCD, 16, "%03d             ", colorR2);
 			 break;
 			 
 		 case MENU_STATE_COLOR_G2:
 			 strcpy(titleLCD, MENU_TITLE_COLOR_G2);
-			 snprintf(valueLCD, 16, "%03d", colorG2);
+			 snprintf(valueLCD, 16, "%03d             ", colorG2);
 			 break;
 			 
 		 case MENU_STATE_COLOR_B2:
 			 strcpy(titleLCD, MENU_TITLE_COLOR_B2);
-			 snprintf(valueLCD, 16, "%03d", colorB2);
+			 snprintf(valueLCD, 16, "%03d             ", colorB2);
 			 break;
 
 		 case MENU_STATE_RELEASE:
 			 strcpy(titleLCD, MENU_TITLE_RELEASE);
-			 snprintf(valueLCD, 16, "%03d", release);
+			 snprintf(valueLCD, 16, "%03d             ", release);
 			 break;
 
 		 case MENU_STATE_ANIMATION:
@@ -319,77 +320,77 @@ ISR(LCD_REFRESH)
 
 		 case MENU_STATE_DIMMER:
 			 strcpy(titleLCD,MENU_TITLE_DIMMER);
-			 snprintf(valueLCD, 16, "%03d", dimmer);
+			 snprintf(valueLCD, 16, "%03d             ", dimmer);
 			 break;
 
 		 case MENU_STATE_INPUT_SENS_1:
 			 strcpy(titleLCD,MENU_TITLE_SENS1);
-			 snprintf(valueLCD, 16, "%03d", inputSens1);
+			 snprintf(valueLCD, 16, "%03d             ", inputSens1);
 			 break;
 			 
 		 case MENU_STATE_INPUT_SENS_2:
 			 strcpy(titleLCD,MENU_TITLE_SENS2);
-			 snprintf(valueLCD, 16, "%03d", inputSens2);
+			 snprintf(valueLCD, 16, "%03d             ", inputSens2);
 			 break;
 			 
 		 case MENU_STATE_INPUT_SENS_3:
 			 strcpy(titleLCD,MENU_TITLE_SENS3);
-			 snprintf(valueLCD, 16, "%03d", inputSens3);
+			 snprintf(valueLCD, 16, "%03d             ", inputSens3);
 			 break;
 			 
 		 case MENU_STATE_INPUT_SENS_4:
 			 strcpy(titleLCD,MENU_TITLE_SENS4);
-			 snprintf(valueLCD, 16, "%03d", inputSens4);
+			 snprintf(valueLCD, 16, "%03d             ", inputSens4);
 			 break;
 			 
 		 case MENU_STATE_INPUT_SENS_5:
 			 strcpy(titleLCD,MENU_TITLE_SENS5);
-			 snprintf(valueLCD, 16, "%03d", inputSens5);
+			 snprintf(valueLCD, 16, "%03d             ", inputSens5);
 			 break;
 			 
 		 case MENU_STATE_INPUT_SENS_6:
 			 strcpy(titleLCD,MENU_TITLE_SENS6);
-			 snprintf(valueLCD, 16, "%03d", inputSens6);
+			 snprintf(valueLCD, 16, "%03d             ", inputSens6);
 			 break;
 
 		case MENU_STATE_NBLIGHTS_1:
 			 strcpy(titleLCD,MENU_TITLE_NBLIGHTS1);
-			 snprintf(valueLCD, 16, "%03d", nbPixels1);
+			 snprintf(valueLCD, 16, "%03d             ", nbPixels1);
 			 break;
 
 		case MENU_STATE_NBLIGHTS_2:
 			strcpy(titleLCD,MENU_TITLE_NBLIGHTS2);
-			snprintf(valueLCD, 16, "%03d", nbPixels2);
+			snprintf(valueLCD, 16, "%03d             ", nbPixels2);
 			break;
 
 		case MENU_STATE_NBLIGHTS_3:
 			strcpy(titleLCD,MENU_TITLE_NBLIGHTS3);
-			snprintf(valueLCD, 16, "%03d", nbPixels3);
+			snprintf(valueLCD, 16, "%03d             ", nbPixels3);
 			break;
 
 		case MENU_STATE_NBLIGHTS_4:
 			strcpy(titleLCD,MENU_TITLE_NBLIGHTS4);
-			snprintf(valueLCD, 16, "%03d", nbPixels4);
+			snprintf(valueLCD, 16, "%03d             ", nbPixels4);
 			break;
 
 		case MENU_STATE_NBLIGHTS_5:
 			strcpy(titleLCD,MENU_TITLE_NBLIGHTS5);
-			snprintf(valueLCD, 16, "%03d", nbPixels5);
+			snprintf(valueLCD, 16, "%03d             ", nbPixels5);
 			break;
 
 		case MENU_STATE_NBLIGHTS_6:
 			strcpy(titleLCD,MENU_TITLE_NBLIGHTS6);
-			snprintf(valueLCD, 16, "%03d", nbPixels6);
+			snprintf(valueLCD, 16, "%03d             ", nbPixels6);
 			break;
 			 
 		 case MENU_STATE_BOX_LIGHT:
 			 strcpy(titleLCD,MENU_TITLE_BOXLIGHT);
-			 snprintf(valueLCD, 16, "%01d", boxLight);
+			 snprintf(valueLCD, 16, "%01d               ", boxLight);
 			 break;
 			 
 	     case MENU_STATE_LCD_LIGHT:
 			 strcpy(titleLCD,MENU_TITLE_LCDLIGHT);
-			 snprintf(valueLCD, 16, "%01d", lcdLight);
+			 snprintf(valueLCD, 16, "%01d               ", lcdLight);
 			 break;
 
 		 case MENU_STATE_MONITOR:
@@ -474,7 +475,7 @@ ISR(LCD_REFRESH)
 		case 220:
 
 			strcpy(titleLCD,"Select f. preset");
-			snprintf(valueLCD, 16, "Preset #%03d", menuState-200);
+			snprintf(valueLCD, 16, "Preset #%03d     ", menuState-200);
 			break;
 
 		case 301:
@@ -499,10 +500,18 @@ ISR(LCD_REFRESH)
 		case 320:
 
 			strcpy(titleLCD,"Select u. preset");
-			snprintf(valueLCD, 16, "Preset #%03d", menuState-300);
+			snprintf(valueLCD, 16, "Preset #%03d     ", menuState-300);
 			break;
 	 }
 
+
+	
+//cli();
+	// i2c_lcd_clear();
+	// sei();
+	 
+	 
+	 
 	 i2c_lcd_set_cursor(0,0);
 	 i2c_lcd_write_text(titleLCD);
 
@@ -755,9 +764,13 @@ void WriteConfigToNVM(void){
 
  int lastCounter = 0;
  int lastIndex = 0;
+ 
+
 
 ISR(ENCODER_TURNED)
 {
+	
+	
 	int val = TCE0.CNT > 1 ? 1 : -1;
 
 	if ((countTCF0 - lastCounter) < 2){
@@ -766,7 +779,11 @@ ISR(ENCODER_TURNED)
 
 	lastCounter = countTCF0;
 
+	processingEncoder = 1;
+
 	updateMenuState(val);
+	
+	
 	
 	if (val != 0 && editingValue){
 
@@ -905,6 +922,8 @@ ISR(ENCODER_TURNED)
 				break;
 		}
 	}
+	
+	processingEncoder = 0;
 }
 
  inline void savePreset(int presetNb) {

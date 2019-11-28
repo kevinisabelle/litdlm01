@@ -5,7 +5,7 @@ src/main.d src/main.o: ../src/main.c ../src/asf.h \
  k:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\inttypes.h \
  k:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\lib\gcc\avr\5.4.0\include\stdint.h \
  k:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\stdint.h \
- K:\Program\ Files\ (x86)\Atmel\Studio\7.0\Packs\atmel\XMEGAA_DFP\1.1.68\include/avr/iox64a3u.h \
+ K:\Program\ Files\ (x86)\Atmel\Studio\7.0\Packs\atmel\XMEGAA_DFP\1.1.68\include/avr/iox192a3u.h \
  k:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\portpins.h \
  k:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\common.h \
  k:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\version.h \
@@ -54,7 +54,7 @@ k:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\lib\
 
 k:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\stdint.h:
 
-K:\Program\ Files\ (x86)\Atmel\Studio\7.0\Packs\atmel\XMEGAA_DFP\1.1.68\include/avr/iox64a3u.h:
+K:\Program\ Files\ (x86)\Atmel\Studio\7.0\Packs\atmel\XMEGAA_DFP\1.1.68\include/avr/iox192a3u.h:
 
 k:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\portpins.h:
 

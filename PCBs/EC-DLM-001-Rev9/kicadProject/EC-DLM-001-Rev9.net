@@ -1,7 +1,7 @@
 (export (version D)
   (design
     (source K:/Dev/litioo/ECDLM001/PCBs/EC-DLM-001-Rev9/kicadProject/EC-DLM-001-Rev9.sch)
-    (date "2019-03-04 23:40:41")
+    (date "2019-08-29 03:40:52")
     (tool "Eeschema 4.0.6")
     (sheet (number 1) (name /) (tstamps /)
       (title_block
@@ -383,7 +383,7 @@
       (tstamp 5C6BC607))
     (comp (ref D2)
       (value 1N5821)
-      (footprint TO_SOT_Packages_THT:TO-220-2_Vertical)
+      (footprint Diodes_THT:D_DO-201AD_P15.24mm_Horizontal)
       (libsource (lib device) (part D_Schottky))
       (sheetpath (names /) (tstamps /))
       (tstamp 5C6FE7CB))

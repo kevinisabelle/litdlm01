@@ -11,16 +11,6 @@
 // Pin/Ports configurations
 #define WS2812_PORT			PORTA
 #define TRIGGER_PORT		PORTB
-//#define SCHMITT_TRIG_PORT	PORTC
-#define RESET_TRIG_PORT		PORTF
-#define RESET_PIN1			PIN5_bm
-#define RESET_PIN2			PIN4_bm
-#define RESET_PIN3			PIN3_bm
-#define RESET_PIN4			PIN2_bm
-#define RESET_PIN5			PIN1_bm
-#define RESET_PIN6			PIN0_bm
-#define RESET_PIN7			PIN6_bm
-#define RESET_PIN8			PIN7_bm
 
 #define BOX_LED_PORT		PORTD
 #define BOX_LED1_PIN		PIN6_bm

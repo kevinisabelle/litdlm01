@@ -60,7 +60,7 @@ Reference, Value, Footprint, Datasheet
 "L4","100uH","Inductors_THT:L_Radial_D9.5mm_P5.00mm_Fastron_07HVP",""
 "J13","Bluetooth Module","Pin_Headers:Pin_Header_Straight_1x06_Pitch2.54mm",""
 "L5","10uH","Inductors_THT:L_Axial_L9.5mm_D4.0mm_P5.08mm_Vertical_Fastron_SMCC",""
-"D2","1N5821","TO_SOT_Packages_THT:TO-220-2_Vertical",""
+"D2","1N5821","Diodes_THT:D_DO-201AD_P15.24mm_Horizontal",""
 "C4","0.33u","Capacitors_THT:CP_Radial_D5.0mm_P2.50mm",""
 "R11","2k","Resistors_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal",""
 "C19","680u","Capacitors_THT:CP_Radial_D13.0mm_P7.50mm",""

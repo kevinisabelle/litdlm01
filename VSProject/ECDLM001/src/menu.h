@@ -21,9 +21,9 @@
 #define MENU_L1_FPRESETS    107
 #define MENU_L1_MONITOR		108
 
-#define MENU_TITLE_L1_IDLE			 "LITDLM1 - v3.0"
-#define MENU_TITLE_L1_MODE			 "Mode        " // DMX, Manual
-#define MENU_TITLE_L1_ADDRESS		 "DMX Address "
+#define MENU_TITLE_L1_IDLE			 "LITDLM1 - v3.1  "
+#define MENU_TITLE_L1_MODE			 "Mode            " // DMX, Manual
+#define MENU_TITLE_L1_ADDRESS		 "DMX Address     "
 #define MENU_TITLE_L1_COLORS		 "Colors config..."
 #define MENU_TITLE_L1_ANIMATION		 "Anim config...  "
 #define MENU_TITLE_L1_SETUP			 "General setup..."
@@ -31,40 +31,40 @@
 #define MENU_TITLE_L1_FACTORY_PRESET "Factory presets "
 #define MENU_TITLE_L1_MONITOR		 "Monitoring...   "
 
-#define MENU_ACTION_BACK	"Back...    "		
+#define MENU_ACTION_BACK	"Back...         "		
 
 // Menu definitions
 
-#define MENU_TITLE_COLOR_R1			"Red   1     "
-#define MENU_TITLE_COLOR_G1			"Green 1     "
-#define MENU_TITLE_COLOR_B1			"Blue  1     "
-#define MENU_TITLE_COLOR_R2			"Red   2     "
-#define MENU_TITLE_COLOR_G2			"Green 2     "
-#define MENU_TITLE_COLOR_B2			"Blue  2     "
-#define MENU_TITLE_DIMMER			"Dimmer      "
+#define MENU_TITLE_COLOR_R1			 "Red   1         "
+#define MENU_TITLE_COLOR_G1			 "Green 1         "
+#define MENU_TITLE_COLOR_B1			 "Blue  1         "
+#define MENU_TITLE_COLOR_R2			 "Red   2         "
+#define MENU_TITLE_COLOR_G2			 "Green 2         "
+#define MENU_TITLE_COLOR_B2			 "Blue  2         "
+#define MENU_TITLE_DIMMER			 "Dimmer          "
 
-#define MENU_TITLE_RELEASE			"Release time" // 0 - 100
-#define MENU_TITLE_ANIM				"Animation   " // Pulse, Fill L, Fill R, Fill C, Fill CB, Point L, Point R, Point C, CycleColors 
-#define MENU_TITLE_ANIM_TRIG		"Anim trigger" // Trigger, Auto single, Auto all, Random single, Random all, On, Off
-#define MENU_TITLE_CURVE			"Anim curve  " // Linear, Exponential, Logarithmic
+#define MENU_TITLE_RELEASE			 "Release time    " // 0 - 100
+#define MENU_TITLE_ANIM				 "Animation       " // Pulse, Fill L, Fill R, Fill C, Fill CB, Point L, Point R, Point C, CycleColors 
+#define MENU_TITLE_ANIM_TRIG		 "Anim trigger    " // Trigger, Auto single, Auto all, Random single, Random all, On, Off
+#define MENU_TITLE_CURVE			 "Anim curve      " // Linear, Exponential, Logarithmic
 
-#define MENU_TITLE_SENS1			"Input sens 1"
-#define MENU_TITLE_SENS2			"Input sens 2"
-#define MENU_TITLE_SENS3			"Input sens 3"
-#define MENU_TITLE_SENS4			"Input sens 4"
-#define MENU_TITLE_SENS5			"Input sens 5"
-#define MENU_TITLE_SENS6			"Input sens 6"
-#define MENU_TITLE_NBLIGHTS1		"Nb lights  1"
-#define MENU_TITLE_NBLIGHTS2		"Nb lights  2"
-#define MENU_TITLE_NBLIGHTS3		"Nb lights  3"
-#define MENU_TITLE_NBLIGHTS4		"Nb lights  4"
-#define MENU_TITLE_NBLIGHTS5		"Nb lights  5"
-#define MENU_TITLE_NBLIGHTS6		"Nb lights  6"
-#define MENU_TITLE_BOXLIGHT			"Enclo. Light" // On - Off
-#define MENU_TITLE_LCDLIGHT			"LCD Light   " // On - Off
+#define MENU_TITLE_SENS1			 "Input sens 1    "
+#define MENU_TITLE_SENS2			 "Input sens 2    "
+#define MENU_TITLE_SENS3			 "Input sens 3    "
+#define MENU_TITLE_SENS4			 "Input sens 4    "
+#define MENU_TITLE_SENS5			 "Input sens 5    "
+#define MENU_TITLE_SENS6			 "Input sens 6    "
+#define MENU_TITLE_NBLIGHTS1		 "Nb lights  1    "
+#define MENU_TITLE_NBLIGHTS2		 "Nb lights  2    "
+#define MENU_TITLE_NBLIGHTS3	 	 "Nb lights  3    "
+#define MENU_TITLE_NBLIGHTS4		 "Nb lights  4    "
+#define MENU_TITLE_NBLIGHTS5		 "Nb lights  5    "
+#define MENU_TITLE_NBLIGHTS6	 	 "Nb lights  6    "
+#define MENU_TITLE_BOXLIGHT			 "Enclo. Light    " // On - Off
+#define MENU_TITLE_LCDLIGHT			 "LCD Light       " // On - Off
 
-#define MENU_TITLE_SHOW_ACTIVITY	"Animation 1 to 3"
-#define MENU_TITLE_SHOW_ACTIVITY_2	"Animation 4 to 6"
+#define MENU_TITLE_SHOW_ACTIVITY	 "Animation 1 to 3"
+#define MENU_TITLE_SHOW_ACTIVITY_2	 "Animation 4 to 6"
 
 
 #define MENU_TITLE_USE_USER_PRESET	"Use user set..."

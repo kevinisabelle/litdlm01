@@ -243,7 +243,7 @@ int main(void)
 //==============================================================================
 {
 	setClockTo32MHz();
-	
+
 	_delay_ms(100);
 	
 	memset(DISPLAY_PIXELS, 0, NB_PIXELS);
@@ -253,7 +253,7 @@ int main(void)
 	memset(read_page, 0, EEPROM_PAGE_SIZE);
 	memset(preset_page, 0, EEPROM_PAGE_SIZE);
 	
-	BOX_LED_PORT.DIRSET |= BOX_LED1_PIN | BOX_LED2_PIN;
+	BOX_LED_PORT.DIRCLR |= BOX_LED1_PIN | BOX_LED2_PIN;
 	BOX_LED_PORT.OUTSET = BOX_LED1_PIN;
 	
 	init_LCD();
@@ -262,7 +262,7 @@ int main(void)
 	
 	_delay_ms(500);
 	
-	BOX_LED_PORT.OUTSET = BOX_LED1_PIN | BOX_LED2_PIN;
+	BOX_LED_PORT.DIRCLR = BOX_LED1_PIN | BOX_LED2_PIN;
 	PMIC.CTRL = PMIC_LOLVLEN_bm | PMIC_HILVLEN_bm | PMIC_MEDLVLEN_bm;
 	
 	ReadConfigFromNVM();
@@ -278,12 +278,24 @@ int main(void)
 
 	sei();
 	
-	BOX_LED_PORT.DIRSET |= BOX_LED1_PIN | BOX_LED2_PIN;
-	BOX_LED_PORT.OUTSET |= BOX_LED1_PIN | BOX_LED2_PIN;
 	
 	while(1)
 	{
+		/*_delay_ms(10);
 		
+		BOX_LED_PORT.OUTCLR |= BOX_LED1_PIN;
+		
+		_delay_ms(10);
+		
+		BOX_LED_PORT.OUTSET |= BOX_LED2_PIN;
+		
+		_delay_ms(10);
+		
+		BOX_LED_PORT.OUTCLR |= BOX_LED2_PIN;
+		
+		_delay_ms(10);
+		
+		BOX_LED_PORT.OUTSET |= BOX_LED1_PIN;*/
 	}	
 }
 

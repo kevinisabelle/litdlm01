@@ -2,7 +2,7 @@
 <export version="D">
   <design>
     <source>K:/Dev/litioo/ECDLM001/PCBs/EC-DLM-001-Rev9/kicadProject/EC-DLM-001-Rev9.sch</source>
-    <date>2019-03-07 06:02:33</date>
+    <date>2019-08-29 03:40:56</date>
     <tool>Eeschema 4.0.6</tool>
     <sheet number="1" name="/" tstamps="/">
       <title_block>
@@ -448,7 +448,7 @@
     </comp>
     <comp ref="D2">
       <value>1N5821</value>
-      <footprint>TO_SOT_Packages_THT:TO-220-2_Vertical</footprint>
+      <footprint>Diodes_THT:D_DO-201AD_P15.24mm_Horizontal</footprint>
       <libsource lib="device" part="D_Schottky"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamp>5C6FE7CB</tstamp>
