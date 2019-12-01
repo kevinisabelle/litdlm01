@@ -1847,22 +1847,21 @@ END GROUP
 .stab.indexstr
  *(.stab.indexstr)
 
-.comment        0x00000000       0x8c
+.comment        0x00000000       0x5c
  *(.comment)
  .comment       0x00000000       0x30 src/appbl.o
                                  0x31 (size before relaxing)
- .comment       0x00000030       0x30 src/i2c.o
-                                 0x31 (size before relaxing)
- .comment       0x00000060       0x31 src/i2c_lcd.o
- .comment       0x00000060       0x31 src/main.o
- .comment       0x00000060       0x31 src/menu.o
- .comment       0x00000060       0x31 src/ws2812b.o
- .comment       0x00000060       0x31 src/ASF/xmega/drivers/nvm/nvm.o
- .comment       0x00000060       0x31 k:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avrxmega6\libc.a(rand.o)
- .comment       0x00000060       0x31 k:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avrxmega6\libc.a(snprintf.o)
- .comment       0x00000060       0x2c k:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avrxmega6\libc.a(vfprintf_std.o)
+ .comment       0x00000030       0x31 src/i2c.o
+ .comment       0x00000030       0x31 src/i2c_lcd.o
+ .comment       0x00000030       0x31 src/main.o
+ .comment       0x00000030       0x31 src/menu.o
+ .comment       0x00000030       0x31 src/ws2812b.o
+ .comment       0x00000030       0x31 src/ASF/xmega/drivers/nvm/nvm.o
+ .comment       0x00000030       0x31 k:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avrxmega6\libc.a(rand.o)
+ .comment       0x00000030       0x31 k:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avrxmega6\libc.a(snprintf.o)
+ .comment       0x00000030       0x2c k:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avrxmega6\libc.a(vfprintf_std.o)
                                  0x2d (size before relaxing)
- .comment       0x0000008c       0x31 k:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avrxmega6\libc.a(fputc.o)
+ .comment       0x0000005c       0x31 k:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avrxmega6\libc.a(fputc.o)
 
 .note.gnu.avr.deviceinfo
                 0x00000000       0x40
