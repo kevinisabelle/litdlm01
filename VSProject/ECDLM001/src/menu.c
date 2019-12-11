@@ -214,12 +214,16 @@ char ledCount = 0;
 
 ISR(LCD_REFRESH)
 {
-	if (!editingValue) {
+	if (editingValue) {
+		BOX_LED_PORT.OUTTGL |= BOX_LED2_PIN | BOX_LED1_PIN;
+		}
+		else {
+			
 				
 		if (boxLight == 1){
-			BOX_LED_PORT.OUTSET = BOX_LED2_PIN | BOX_LED1_PIN;
+			BOX_LED_PORT.OUTCLR  |=  BOX_LED2_PIN | BOX_LED1_PIN;
 			} else {
-			BOX_LED_PORT.OUTCLR = BOX_LED2_PIN | BOX_LED1_PIN;
+			BOX_LED_PORT.OUTSET  |=  BOX_LED2_PIN | BOX_LED1_PIN;
 		}
 	}
 	
@@ -232,19 +236,6 @@ ISR(LCD_REFRESH)
 	 if (!editingValue && menuState != MENU_STATE_MONITOR && menuState != MENU_STATE_MONITOR_2){
 		 //
 	 }
-	 
-	 if (editingValue){
-		 ledCount++;
-		 if (ledCount == 4) { ledCount = 0;}
-	 
-		if (ledCount == 0){
-			BOX_LED_PORT.OUTTGL |= BOX_LED1_PIN;
-		}
-		
-		if (ledCount == 2) {
-			BOX_LED_PORT.OUTTGL |= BOX_LED2_PIN;
-		}
-	 } 
 	 
 	 switch (menuState){
 
@@ -672,12 +663,6 @@ void WriteConfigToNVM(void){
 		   i2c_lcd_led_off();
 	   }
 	   
-	   if (boxLight == 1){
-		   BOX_LED_PORT.OUTSET = BOX_LED2_PIN;
-		   } else {
-		   BOX_LED_PORT.OUTCLR = BOX_LED2_PIN;
-	   }
-	   
    }
    
  int capValue(int value, int min, int max){
@@ -769,17 +754,21 @@ void WriteConfigToNVM(void){
 
 ISR(ENCODER_TURNED)
 {
-	
+	if (processingEncoder){
+		return;
+	}
 	
 	int val = TCE0.CNT > 1 ? 1 : -1;
 
-	if ((countTCF0 - lastCounter) < 2){
+	if ((countTCF0 - lastCounter) < 12){
 		return;
 	}
 
 	lastCounter = countTCF0;
 
 	processingEncoder = 1;
+	
+	
 
 	updateMenuState(val);
 	
@@ -801,11 +790,11 @@ ISR(ENCODER_TURNED)
 			case MENU_STATE_BOX_LIGHT:
 				boxLight = capValue(boxLight+val, 0, 1);
 
-				if (boxLight == 1){
-					BOX_LED_PORT.OUTSET = BOX_LED2_PIN;
+				/*if (boxLight == 1){
+					BOX_LED_PORT.OUTSET |=  BOX_LED2_PIN;
 					} else {
-					BOX_LED_PORT.OUTCLR = BOX_LED2_PIN;
-				}
+					BOX_LED_PORT.OUTCLR  |=  BOX_LED2_PIN;
+				}*/
 
 				break;
 			
@@ -1041,13 +1030,13 @@ ISR(ENCODER_TURNED)
  
  void flashMainLed() {
  
-	cli();
+	/*cli();
 	BOX_LED_PORT.OUTCLR |= BOX_LED1_PIN | BOX_LED2_PIN;
 	_delay_ms(250);
 	BOX_LED_PORT.OUTSET |= BOX_LED1_PIN | BOX_LED2_PIN;
 	_delay_ms(250);
 	BOX_LED_PORT.OUTCLR |= BOX_LED1_PIN | BOX_LED2_PIN;
-	sei();
+	sei();*/
  }
  
  ISR(BUTTON_PRESSED12){
@@ -1139,10 +1128,10 @@ ISR(ENCODER_TURNED)
 		 
 		 editingValue ^= 1;
 		 
-		 if (boxLight == 1){
-			 BOX_LED_PORT.OUTSET = BOX_LED2_PIN;
+		/* if (boxLight == 1){
+			 BOX_LED_PORT.OUTSET  |=  BOX_LED2_PIN;
 		} else {
-			 BOX_LED_PORT.OUTCLR = BOX_LED2_PIN;
-		 }
+			 BOX_LED_PORT.OUTCLR |=  BOX_LED2_PIN;
+		 }*/
 	 }
- }
+		}

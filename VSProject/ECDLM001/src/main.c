@@ -67,7 +67,7 @@ static void init_RotaryEncoder(void) {
 	TCE0.PER = 2;
 	TCE0.CTRLA  = TC_CLKSEL_DIV4_gc;
 	TCE0.CNT = 0;
-	TCE0.INTCTRLA = TC_OVFINTLVL_LO_gc;
+	TCE0.INTCTRLA = TC_OVFINTLVL_HI_gc;
 }
 
 static void init_Triggers(void) {
@@ -253,8 +253,7 @@ int main(void)
 	memset(read_page, 0, EEPROM_PAGE_SIZE);
 	memset(preset_page, 0, EEPROM_PAGE_SIZE);
 	
-	BOX_LED_PORT.DIRCLR |= BOX_LED1_PIN | BOX_LED2_PIN;
-	BOX_LED_PORT.OUTSET = BOX_LED1_PIN;
+	
 	
 	init_LCD();
 	i2c_lcd_set_cursor(0,0);
@@ -262,10 +261,12 @@ int main(void)
 	
 	_delay_ms(500);
 	
-	BOX_LED_PORT.DIRCLR = BOX_LED1_PIN | BOX_LED2_PIN;
+	
 	PMIC.CTRL = PMIC_LOLVLEN_bm | PMIC_HILVLEN_bm | PMIC_MEDLVLEN_bm;
 	
 	ReadConfigFromNVM();
+	
+	
 	
 	init_Triggers();
 	init_ADCConversionTimer();
@@ -277,25 +278,14 @@ int main(void)
 	init_DMX();
 
 	sei();
-	
+	BOX_LED_PORT.DIR |= BOX_LED2_PIN | BOX_LED2_PIN;
+	BOX_LED_PORT.OUTCLR |= BOX_LED2_PIN | BOX_LED1_PIN;
 	
 	while(1)
 	{
-		/*_delay_ms(10);
 		
-		BOX_LED_PORT.OUTCLR |= BOX_LED1_PIN;
 		
-		_delay_ms(10);
 		
-		BOX_LED_PORT.OUTSET |= BOX_LED2_PIN;
-		
-		_delay_ms(10);
-		
-		BOX_LED_PORT.OUTCLR |= BOX_LED2_PIN;
-		
-		_delay_ms(10);
-		
-		BOX_LED_PORT.OUTSET |= BOX_LED1_PIN;*/
 	}	
 }
 
