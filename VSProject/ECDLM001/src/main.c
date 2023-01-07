@@ -73,15 +73,18 @@ static void init_RotaryEncoder(void) {
 static void init_Triggers(void) {
 	
 	TRIGGER_PORT.DIRCLR =  PIN0_bm | PIN1_bm | PIN2_bm | PIN3_bm | PIN4_bm | PIN5_bm | PIN6_bm | PIN7_bm;
-	
+	// TRIGGER_PORT.DIRSET = PIN6_bm | PIN7_bm;
 	TRIGGER_PORT.PIN0CTRL = PORT_OPC_PULLDOWN_gc;
 	TRIGGER_PORT.PIN1CTRL = PORT_OPC_PULLDOWN_gc;
 	TRIGGER_PORT.PIN2CTRL = PORT_OPC_PULLDOWN_gc;
 	TRIGGER_PORT.PIN3CTRL = PORT_OPC_PULLDOWN_gc;
 	TRIGGER_PORT.PIN4CTRL = PORT_OPC_PULLDOWN_gc;
 	TRIGGER_PORT.PIN5CTRL = PORT_OPC_PULLDOWN_gc;
-	TRIGGER_PORT.PIN6CTRL = PORT_OPC_PULLDOWN_gc;
-	TRIGGER_PORT.PIN7CTRL = PORT_OPC_PULLDOWN_gc;
+	
+	TRIGGER_PORT.PIN6CTRL  =  PORT_OPC_PULLDOWN_gc;
+	TRIGGER_PORT.PIN7CTRL  =  PORT_OPC_PULLDOWN_gc;
+	// TRIGGER_PORT.OUTCLR =  PIN6_bm;
+	// TRIGGER_PORT.OUTCLR =  PIN7_bm;
 	
 	ADCB.CALL = ReADCBlibrationByte(PRODSIGNATURES_ADCBCAL0);
 	ADCB.CALH = ReADCBlibrationByte(PRODSIGNATURES_ADCBCAL1);
@@ -96,8 +99,9 @@ static void init_Triggers(void) {
 	ADCB.CH0.INTCTRL = 0;
 	ADCB.CH0.CTRL = ADC_CH_INPUTMODE_SINGLEENDED_gc;
 	
+	_delay_us(2000); // Wait at least 25 clocks
 	
-	_delay_us(400); // Wait at least 25 clocks
+	
 }
 
 static void init_ADCConversionTimer(void){
@@ -124,16 +128,22 @@ static void init_ADCConversionTimer(void){
 
 ISR(RTC_OVF_vect){
 	
-	for (int i=0; i<6; i++){
+	for (int i=0; i<8; i++){
+		
 		ADCB.CH0.MUXCTRL = ((i)<<3);	//Analog Input: ADC1 Pin (on PORTA.0)
 		ADCB.CH0.INTCTRL = 0 ;
 		ADCB.CH0.CTRL |= ADC_CH_START_bm;		//Start conversion on ADCB1 (bm = bitmask)
 		while(ADCB.CH0.INTFLAGS==0);			//Wait for conversion to complete
-		ADCB.CH0.INTFLAGS = ADCB.CH0.INTFLAGS;
-		TRIGGER_STATES[i] = clipValue(ADCB.CH0.RES,i) ; //Get the conversion result
 		
-		if (TRIGGER_STATES[i] > ANIMATION_VALUES[i]){
-			ANIMATION_VALUES[i] = TRIGGER_STATES[i];
+		long value = ADCB.CH0.RES;
+		ADCB.CH0.INTFLAGS = ADCB.CH0.INTFLAGS;
+		
+		if (i < 6){
+			TRIGGER_STATES[i] = clipValue(value,i) ; //Get the conversion result
+		
+			if (TRIGGER_STATES[i] > ANIMATION_VALUES[i]){
+				ANIMATION_VALUES[i] = TRIGGER_STATES[i];
+			}
 		}
 	}
 }
@@ -261,12 +271,9 @@ int main(void)
 	
 	_delay_ms(500);
 	
-	
 	PMIC.CTRL = PMIC_LOLVLEN_bm | PMIC_HILVLEN_bm | PMIC_MEDLVLEN_bm;
 	
 	ReadConfigFromNVM();
-	
-	
 	
 	init_Triggers();
 	init_ADCConversionTimer();
