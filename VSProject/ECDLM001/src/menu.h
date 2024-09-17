@@ -10,8 +10,6 @@
 #ifndef MENU_H_
 #define MENU_H_
 
-
-
 // Menu level 1
 
 #define MENU_L1_COLORS		103
@@ -20,10 +18,12 @@
 #define MENU_L1_UPRESETS	106
 #define MENU_L1_FPRESETS    107
 #define MENU_L1_MONITOR		108
+#define MENU_L1_MIDI		109
 
-#define MENU_TITLE_L1_IDLE			 "LITDLM1 - v3.2  "
+#define MENU_TITLE_L1_IDLE			 "LITDLM1-v4.3MIDI"
 #define MENU_TITLE_L1_MODE			 "Mode            " // DMX, Manual
 #define MENU_TITLE_L1_ADDRESS		 "DMX Address     "
+#define MENU_TITLE_L1_NOTES 		 "Midi notes...   "
 #define MENU_TITLE_L1_COLORS		 "Colors config..."
 #define MENU_TITLE_L1_ANIMATION		 "Anim config...  "
 #define MENU_TITLE_L1_SETUP			 "General setup..."
@@ -54,6 +54,12 @@
 #define MENU_TITLE_SENS4			 "Input sens 4    "
 #define MENU_TITLE_SENS5			 "Input sens 5    "
 #define MENU_TITLE_SENS6			 "Input sens 6    "
+#define MENU_TITLE_MIDI1			 "Midi note 1     "
+#define MENU_TITLE_MIDI2			 "Midi note 2     "
+#define MENU_TITLE_MIDI3			 "Midi note 3     "
+#define MENU_TITLE_MIDI4			 "Midi note 4     "
+#define MENU_TITLE_MIDI5			 "Midi note 5     "
+#define MENU_TITLE_MIDI6			 "Midi note 6     "
 #define MENU_TITLE_NBLIGHTS1		 "Nb lights  1    "
 #define MENU_TITLE_NBLIGHTS2		 "Nb lights  2    "
 #define MENU_TITLE_NBLIGHTS3	 	 "Nb lights  3    "
@@ -151,16 +157,26 @@
 #define MENU_STATE_NBLIGHTS_4			23
 #define MENU_STATE_NBLIGHTS_5			24
 #define MENU_STATE_NBLIGHTS_6			25
-#define MENU_STATE_LCD_LIGHT			26
-#define MENU_STATE_BOX_LIGHT			27
-#define MENU_STATE_MONITOR				28
-#define MENU_STATE_MONITOR_2			29
-#define MENU_STATE_SAVE_USER_PRESET		30
-#define MENU_STATE_USE_USER_PRESET		31
-#define MENU_STATE_USE_FACTORY_PRESET	32
-#define MENU_STATE_BACK					33
-#define MENU_STATE_FACTORY_PRESET		34
-#define MENU_STATE_USER_PRESET			35
+
+#define MENU_STATE_MIDI_1				26
+#define MENU_STATE_MIDI_2				27
+#define MENU_STATE_MIDI_3				28
+#define MENU_STATE_MIDI_4				29
+#define MENU_STATE_MIDI_5				30
+#define MENU_STATE_MIDI_6				31
+#define MENU_STATE_LCD_LIGHT			32
+#define MENU_STATE_BOX_LIGHT			33
+
+#define MENU_STATE_MONITOR				34
+#define MENU_STATE_MONITOR_2			35
+#define MENU_STATE_SAVE_USER_PRESET		36
+#define MENU_STATE_USE_USER_PRESET		37
+#define MENU_STATE_USE_FACTORY_PRESET	38
+#define MENU_STATE_BACK					39
+#define MENU_STATE_FACTORY_PRESET		40
+#define MENU_STATE_USER_PRESET			41
+#define MENU_STATE_MIDI_NOTES			42
+
 
 #define MENU_SIZE 30
 
@@ -198,6 +214,12 @@ extern uint8_t nbPixels5;
 extern uint8_t nbPixels6;
 extern uint8_t boxLight;
 extern uint8_t lcdLight;
+extern uint8_t midiNote1;
+extern uint8_t midiNote2;
+extern uint8_t midiNote3;
+extern uint8_t midiNote4;
+extern uint8_t midiNote5;
+extern uint8_t midiNote6;
 
 extern int menuLevel;
 extern int menuState;

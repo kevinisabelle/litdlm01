@@ -68,6 +68,12 @@ uint8_t nbPixels5 = 30;
 uint8_t nbPixels6 = 30;
 uint8_t boxLight = 1;
 uint8_t lcdLight = 1;
+uint8_t midiNote1 = 60;
+uint8_t midiNote2 = 62;
+uint8_t midiNote3 = 64;
+uint8_t midiNote4 = 66;
+uint8_t midiNote5 = 68;
+uint8_t midiNote6 = 70;
 
 struct Preset FactoryPresets[20] = {
 	{ANIMATION_PULSE,	ANIM_TRIG_TRIGGER,	5, CURVE_LINEAR,	0,128,255,		0,0,0,		255}, // 1
@@ -99,6 +105,7 @@ const int MENU_L1[] = {
 	MENU_STATE_IDLE,
 	MENU_STATE_MODE,
 	MENU_STATE_ADDRESS,
+	MENU_L1_MIDI,
 	MENU_L1_COLORS,
 	MENU_L1_ACTIVATION,
 	MENU_L1_SETUP,
@@ -115,6 +122,16 @@ const int MENU_L2_COLORS[] = {
 	MENU_STATE_COLOR_G2,
 	MENU_STATE_COLOR_B2,
 	MENU_STATE_DIMMER,
+	MENU_STATE_BACK
+};
+
+const int MENU_L2_MIDI[] = {
+	MENU_STATE_MIDI_1,
+	MENU_STATE_MIDI_2,
+	MENU_STATE_MIDI_3,
+	MENU_STATE_MIDI_4,
+	MENU_STATE_MIDI_5,
+	MENU_STATE_MIDI_6,
 	MENU_STATE_BACK
 };
 
@@ -349,6 +366,7 @@ ISR(LCD_REFRESH)
 			 snprintf(valueLCD, 16, "%03d             ", nbPixels1);
 			 break;
 
+
 		case MENU_STATE_NBLIGHTS_2:
 			strcpy(titleLCD,MENU_TITLE_NBLIGHTS2);
 			snprintf(valueLCD, 16, "%03d             ", nbPixels2);
@@ -372,6 +390,36 @@ ISR(LCD_REFRESH)
 		case MENU_STATE_NBLIGHTS_6:
 			strcpy(titleLCD,MENU_TITLE_NBLIGHTS6);
 			snprintf(valueLCD, 16, "%03d             ", nbPixels6);
+			break;
+			
+		case MENU_STATE_MIDI_1:
+			strcpy(titleLCD,MENU_TITLE_MIDI1);
+			snprintf(valueLCD, 16, "%03d             ", midiNote1);
+			break;
+			
+		case MENU_STATE_MIDI_2:
+			strcpy(titleLCD,MENU_TITLE_MIDI2);
+			snprintf(valueLCD, 16, "%03d             ", midiNote2);
+			break;
+			
+		case MENU_STATE_MIDI_3:
+			strcpy(titleLCD,MENU_TITLE_MIDI3);
+			snprintf(valueLCD, 16, "%03d             ", midiNote3);
+			break;
+			
+		case MENU_STATE_MIDI_4:
+			strcpy(titleLCD,MENU_TITLE_MIDI4);
+			snprintf(valueLCD, 16, "%03d             ", midiNote4);
+			break;
+			
+		case MENU_STATE_MIDI_5:
+			strcpy(titleLCD,MENU_TITLE_MIDI5);
+			snprintf(valueLCD, 16, "%03d             ", midiNote5);
+			break;
+			
+		case MENU_STATE_MIDI_6:
+			strcpy(titleLCD,MENU_TITLE_MIDI6);
+			snprintf(valueLCD, 16, "%03d             ", midiNote6);
 			break;
 			 
 		 case MENU_STATE_BOX_LIGHT:
@@ -397,6 +445,11 @@ ISR(LCD_REFRESH)
 		case MENU_L1_COLORS:
 			strcpy(titleLCD,MENU_TITLE_L1_COLORS);
 			strcpy(valueLCD,emptyString);
+			 break;
+			 
+		case MENU_L1_MIDI:
+			 strcpy(titleLCD,MENU_TITLE_L1_NOTES);
+			 strcpy(valueLCD,emptyString);
 			 break;
 
 		case MENU_L1_ACTIVATION:
@@ -495,14 +548,6 @@ ISR(LCD_REFRESH)
 			break;
 	 }
 
-
-	
-//cli();
-	// i2c_lcd_clear();
-	// sei();
-	 
-	 
-	 
 	 i2c_lcd_set_cursor(0,0);
 	 i2c_lcd_write_text(titleLCD);
 
@@ -535,10 +580,16 @@ void WriteConfigToNVM(void){
 	   write_page[MENU_STATE_NBLIGHTS_4] = nbPixels4;
 	   write_page[MENU_STATE_NBLIGHTS_5] = nbPixels5;
 	   write_page[MENU_STATE_NBLIGHTS_6] = nbPixels6;
-	   write_page[MENU_STATE_LCD_LIGHT] = lcdLight;
-	   write_page[MENU_STATE_BOX_LIGHT] = boxLight;
+	   //write_page[MENU_STATE_LCD_LIGHT] = lcdLight;
+	   //write_page[MENU_STATE_BOX_LIGHT] = boxLight;
 	   write_page[MENU_STATE_ANIMATION] = animation;
 	   write_page[MENU_STATE_ANIM_TRIG] = animationTrigger;
+	   write_page[MENU_STATE_MIDI_1] = midiNote1;
+	   write_page[MENU_STATE_MIDI_2] = midiNote2;
+	   write_page[MENU_STATE_MIDI_3] = midiNote3;
+	   write_page[MENU_STATE_MIDI_4] = midiNote4;
+	   write_page[MENU_STATE_MIDI_5] = midiNote5;
+	   write_page[MENU_STATE_MIDI_6] = midiNote6;
 	   
 	   nvm_eeprom_load_page_to_buffer(write_page);
 	   nvm_eeprom_atomic_write_page(CONFIG_PAGE);
@@ -650,11 +701,41 @@ void WriteConfigToNVM(void){
 	   }
 	   
 	   if (read_page[MENU_STATE_LCD_LIGHT] != 255){
-		   lcdLight = read_page[MENU_STATE_LCD_LIGHT];
+		   lcdLight = 1;
 	   }
 	   
 	   if (read_page[MENU_STATE_BOX_LIGHT] != 255){
-		   boxLight = read_page[MENU_STATE_BOX_LIGHT];
+		   boxLight = 1;
+	   }
+	   
+	   if (read_page[MENU_STATE_MIDI_1] != 255){
+		   midiNote1 = read_page[MENU_STATE_MIDI_1];
+		   note_for_trigger[0] = midiNote1;
+	   }
+	   
+	   if (read_page[MENU_STATE_MIDI_2] != 255){
+		   midiNote2 = read_page[MENU_STATE_MIDI_2];
+		   note_for_trigger[1] = midiNote2;
+	   }
+	   
+	   if (read_page[MENU_STATE_MIDI_3] != 255){
+		   midiNote3 = read_page[MENU_STATE_MIDI_3];
+		   note_for_trigger[2] = midiNote3;
+	   }
+	   
+	   if (read_page[MENU_STATE_MIDI_4] != 255){
+		   midiNote4 = read_page[MENU_STATE_MIDI_4];
+		   note_for_trigger[3] = midiNote4;
+	   }
+	   
+	   if (read_page[MENU_STATE_MIDI_5] != 255){
+		   midiNote5 = read_page[MENU_STATE_MIDI_5];
+		   note_for_trigger[4] = midiNote5;
+	   }
+	   
+	   if (read_page[MENU_STATE_MIDI_6] != 255){
+		   midiNote6 = read_page[MENU_STATE_MIDI_6];
+		   note_for_trigger[5] = midiNote6;
 	   }
 	   
 	   if (lcdLight == 1){
@@ -694,30 +775,36 @@ void WriteConfigToNVM(void){
 			switch (menuStates[menuLevel-1]) {
 
 				case 3:
+
+					menuStates[menuLevel] = capValue(menuStates[menuLevel], 0, (sizeof(MENU_L2_MIDI) / sizeof(int))-1);
+					menuState = MENU_L2_MIDI[menuStates[menuLevel]];
+					break;
+
+				case 4:
 					
 					menuStates[menuLevel] = capValue(menuStates[menuLevel], 0, (sizeof(MENU_L2_COLORS) / sizeof(int))-1);
 					menuState = MENU_L2_COLORS[menuStates[menuLevel]];
 					break;
 
-				case 4:
+				case 5:
 
 					menuStates[menuLevel] = capValue(menuStates[menuLevel], 0, (sizeof(MENU_L2_ACTIVATION) / sizeof(int))-1);
 					menuState = MENU_L2_ACTIVATION[menuStates[menuLevel]];
 					break;
 
-				case 5:
+				case 6:
 
 					menuStates[menuLevel] = capValue(menuStates[menuLevel], 0, (sizeof(MENU_L2_SETUP) / sizeof(int))-1);
 					menuState = MENU_L2_SETUP[menuStates[menuLevel]];
 					break;
 
-				case 6:
+				case 7:
 				
 					menuStates[menuLevel] = capValue(menuStates[menuLevel], 0, (sizeof(MENU_L3_FACTORYPRESETS) / sizeof(int))-1);
 					menuState = MENU_L3_FACTORYPRESETS[menuStates[menuLevel]];
 					break;
 
-				case 7:
+				case 8:
 
 					menuStates[menuLevel] = capValue(menuStates[menuLevel], 0, (sizeof(MENU_L3_USERPRESETS) / sizeof(int))-1);
 					menuState = MENU_L3_USERPRESETS[menuStates[menuLevel]];
@@ -768,11 +855,7 @@ ISR(ENCODER_TURNED)
 
 	processingEncoder = 1;
 	
-	
-
 	updateMenuState(val);
-	
-	
 	
 	if (val != 0 && editingValue){
 
@@ -900,6 +983,36 @@ ISR(ENCODER_TURNED)
 			
 			case MENU_STATE_ANIM_TRIG:
 				animationTrigger = capValue((animationTrigger+val), 0, 6);
+				break;
+				
+			case MENU_STATE_MIDI_1:
+				midiNote1 = capValue((midiNote1+val), 50, 80);
+				note_for_trigger[0] = midiNote1;
+				break;
+
+			case MENU_STATE_MIDI_2:
+				midiNote2 = capValue((midiNote2+val), 50, 80);
+				note_for_trigger[1] = midiNote2;
+				break;
+			
+			case MENU_STATE_MIDI_3:
+				midiNote3 = capValue((midiNote3+val), 50, 80);
+				note_for_trigger[2] = midiNote3;
+				break;
+			
+			case MENU_STATE_MIDI_4:
+				midiNote4 = capValue((midiNote4+val), 50, 80);
+				note_for_trigger[3] = midiNote4;
+				break;
+			
+			case MENU_STATE_MIDI_5:
+				midiNote5 = capValue((midiNote5+val), 50, 80);
+				note_for_trigger[4] = midiNote5;
+				break;
+								
+			case MENU_STATE_MIDI_6:
+				midiNote6 = capValue((midiNote6+val), 50, 80);
+				note_for_trigger[5] = midiNote6;
 				break;
 			
 			case MENU_STATE_CURVE:
@@ -1080,6 +1193,7 @@ ISR(ENCODER_TURNED)
 	 if (menuState == MENU_L1_ACTIVATION ||
 		 menuState == MENU_L1_COLORS ||
 		 menuState == MENU_L1_SETUP ||
+		 menuState == MENU_L1_MIDI ||
 		 menuState == MENU_L1_UPRESETS ||
 		 menuState == MENU_L1_FPRESETS ||
 		 menuState == MENU_STATE_FACTORY_PRESET ||
@@ -1111,7 +1225,7 @@ ISR(ENCODER_TURNED)
 	 }
 
 	 // use factory preset
-	 if (menuStates[menuLevel-1] == 6 && menuState > 200){
+	 if (menuStates[menuLevel-1] == 7 && menuState > 200){
 		 loadPresetFactory(FactoryPresets[menuState-201]);
 		 flashMainLed();
 		
@@ -1134,4 +1248,4 @@ ISR(ENCODER_TURNED)
 			 BOX_LED_PORT.OUTCLR |=  BOX_LED2_PIN;
 		 }*/
 	 }
-		}
+}

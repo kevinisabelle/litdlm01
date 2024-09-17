@@ -19,6 +19,17 @@
 long ANIMATION_VALUES[NB_TRIGGERS] = {0};
 int trig[NB_TRIGGERS] = {0};
 unsigned char DISPLAY_PIXELS[NB_PIXELS] = {0};
+
+// **Define the MIDI flags**
+volatile uint8_t sendNoteOnFlag[NB_TRIGGERS] = {0};
+volatile uint8_t sendNoteOffFlag[NB_TRIGGERS] = {0};
+// **Define and initialize prev_ANIMATION_VALUES**
+long prev_ANIMATION_VALUES[NB_TRIGGERS] = {0};
+
+// **Define MIDI note mapping and settings**
+uint8_t note_for_trigger[NB_TRIGGERS] = {60, 62, 64, 65, 67, 69}; // Adjust as needed
+uint8_t midi_channel = 0;  // MIDI Channel 1
+uint8_t velocity[NB_TRIGGERS] = {100, 100, 100, 100, 100, 100};    // Default velocity
 	
 const  unsigned char CURVE_LINEAR_ARR[256] =	{
 	0,
@@ -1280,8 +1291,6 @@ inline unsigned int clipValue(long value, int index){
 	if (value < 100){
 		value = 0;
 	} 
-	
-	
 	
 	if (value > 255){
 		value = 255;

@@ -1,0 +1,4 @@
+(sym_lib_table
+  (lib (name "EC-DLM-001-Rev9-rescue")(type "Legacy")(uri "${KIPRJMOD}/EC-DLM-001-Rev9-rescue.lib")(options "")(descr ""))
+  (lib (name "kevparts")(type "Legacy")(uri "${KIPRJMOD}/kevparts.lib")(options "")(descr ""))
+)
