@@ -30,6 +30,14 @@
 extern long ANIMATION_VALUES[];
 extern int trig[];
 extern unsigned char DISPLAY_PIXELS[];
+// **Add these extern declarations**
+extern volatile uint8_t sendNoteOnFlag[];
+extern volatile uint8_t sendNoteOffFlag[];
+
+// **Add this extern declaration**
+extern long prev_ANIMATION_VALUES[];
+extern uint8_t note_for_trigger[];
+extern uint8_t velocity[];
 
 unsigned int clipValue(long value, int index);
 unsigned int getAnimationValue(unsigned int trigValue, unsigned int currentAnimationValue, int i);
