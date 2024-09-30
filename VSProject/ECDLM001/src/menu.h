@@ -20,7 +20,7 @@
 #define MENU_L1_MONITOR		108
 #define MENU_L1_MIDI		109
 
-#define MENU_TITLE_L1_IDLE			 "LITDLM1-v4.3MIDI"
+#define MENU_TITLE_L1_IDLE			 "LITDLM1-v4.4MIDI"
 #define MENU_TITLE_L1_MODE			 "Mode            " // DMX, Manual
 #define MENU_TITLE_L1_ADDRESS		 "DMX Address     "
 #define MENU_TITLE_L1_NOTES 		 "Midi notes...   "

@@ -986,32 +986,32 @@ ISR(ENCODER_TURNED)
 				break;
 				
 			case MENU_STATE_MIDI_1:
-				midiNote1 = capValue((midiNote1+val), 50, 80);
+				midiNote1 = capValue((midiNote1+val), 0, 127);
 				note_for_trigger[0] = midiNote1;
 				break;
 
 			case MENU_STATE_MIDI_2:
-				midiNote2 = capValue((midiNote2+val), 50, 80);
+				midiNote2 = capValue((midiNote2+val), 0, 127);
 				note_for_trigger[1] = midiNote2;
 				break;
 			
 			case MENU_STATE_MIDI_3:
-				midiNote3 = capValue((midiNote3+val), 50, 80);
+				midiNote3 = capValue((midiNote3+val), 0, 127);
 				note_for_trigger[2] = midiNote3;
 				break;
 			
 			case MENU_STATE_MIDI_4:
-				midiNote4 = capValue((midiNote4+val), 50, 80);
+				midiNote4 = capValue((midiNote4+val), 0, 127);
 				note_for_trigger[3] = midiNote4;
 				break;
 			
 			case MENU_STATE_MIDI_5:
-				midiNote5 = capValue((midiNote5+val), 50, 80);
+				midiNote5 = capValue((midiNote5+val), 0, 127);
 				note_for_trigger[4] = midiNote5;
 				break;
 								
 			case MENU_STATE_MIDI_6:
-				midiNote6 = capValue((midiNote6+val), 50, 80);
+				midiNote6 = capValue((midiNote6+val), 0, 127);
 				note_for_trigger[5] = midiNote6;
 				break;
 			
